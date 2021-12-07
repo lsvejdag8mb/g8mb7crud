@@ -67,11 +67,12 @@ async function sendMessagePOST() {
   let url = "https://nodejs-3260.rostiapp.cz/crud/create";
   let body = {};
   body.appId = "f37620849972633644bbc5e1817f8227";
-  body.jmeno = document.getElementById("jmeno").value;
-  body.prijmeni = document.getElementById("prijmeni").value;
-  body.roknar = document.getElementById("roknarozeni").value;
-  body.email = document.getElementById("email").value;
-  body.potvrzeno = document.getElementById("potvrzeno").checked;
+  body.obj = {}; //we must set properties into body.obj!!!
+  body.obj.jmeno = document.getElementById("jmeno").value;
+  body.obj.prijmeni = document.getElementById("prijmeni").value;
+  body.obj.roknar = document.getElementById("roknarozeni").value;
+  body.obj.email = document.getElementById("email").value;
+  body.obj.potvrzeno = document.getElementById("potvrzeno").checked;
   let response = await fetch(url, {"method":"POST", "body": JSON.stringify(body)});
   let data = await response.json();
 
