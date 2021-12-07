@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>CRUD</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="script.js"></script>
+  </head>
+  <body onload="onLoad()">
+    <h1>CRUD</h1>
+
+    <div id="registration">
+      <h2>Registration</h2>
+      Fullname: <input type="text" id="reg_fullname"><br>
+      User name: <input type="text" id="reg_username"><br>      
+      Password: <input type="password" id="reg_password"><br>
+      E-mail: <input type="email" id="reg_email"><br>
+      <button onclick="registration()">Registry</button>
+    </div>
+
+    <div id="login">
+      <h2>Login</h2>
+
+      <table>
+        <tr>
+          <td>User name:</td>
+          <td><input type="text" id="username"></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input type="password" id="password"></td>
+        </tr>
+      </table>
+      <button onclick="login()">Login</button>
+      <button onclick="showRegistration()">Registration...</button>
+      
+    </div>
+
+    <br><br>
+
+    <div id="chat">
+
+      <input type="text" id="message">
+      <button onclick="sendMessagePOST()">Send</button>
+      <button onclick="logout()">Logout</button>
+
+      <div id="messageList">...</div>
+
+    </div>
+
+  </body>
+</html>
