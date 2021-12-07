@@ -86,10 +86,12 @@ async function updateMessages() {
   let data = await response.json();
   console.log(data);
 
-  let s = "";
+  let s = "<table class='table'>";
+  s = s + "<tr><th>Jméno</th><th>Příjmení</th><th>Rok narození</td><th>E-mail</td><th>Potvrzeno</td></tr>";
   for (let m of data.items) {
-    s = s + m.obj.jmeno + "@" + m.obj.prijmeni + "@" + m.obj.roknar + "<br>";
+    s = s + "<tr><td>" + m.obj.jmeno + "</td><td>" + m.obj.prijmeni + "</td><td>" + m.obj.roknar + "</td><td>" + m.obj.email + "</td><td>" + m.obj.potvrzeno + "</td></tr>";
   }
+  s = s + "</table>";
 
   document.getElementById("messageList").innerHTML = s;
 }
