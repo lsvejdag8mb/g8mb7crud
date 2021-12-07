@@ -64,17 +64,18 @@ async function logout() {
 }
 
 async function sendMessagePOST() {
-  let m = document.getElementById("message").value;
-  document.getElementById("message").value = ""; //clear message text on page
-  document.getElementById("message").focus(); //text cursor to input
-
-  let url = "https://nodejs-3260.rostiapp.cz/chat/addMsg";
+  let url = "https://nodejs-3260.rostiapp.cz/crud/create";
   let body = {};
-  body.msg = m;
-  body.chat = "ide933a740f211a5579b56dede4bb2c5";
-  body.token = userToken;
+  body.appId = "f37620849972633644bbc5e1817f8227";
+  body.jmeno = document.getElementById("jmeno").value;
+  body.prijmeni = document.getElementById("prijmeni").value;
+  body.roknar = document.getElementById("roknarozeni").value;
+  body.email = document.getElementById("email").value;
+  body.potvrzeno = document.getElementById("potvrzeno").checked;
   let response = await fetch(url, {"method":"POST", "body": JSON.stringify(body)});
   let data = await response.json();
+
+  updateMessages();
 
 }
 
@@ -126,5 +127,5 @@ function showChat() {
 function onLoad() {
   showChat();
 
-  document.getElementById("message").addEventListener("keydown", onKeyDown);
+  //document.getElementById("message").addEventListener("keydown", onKeyDown);
 }

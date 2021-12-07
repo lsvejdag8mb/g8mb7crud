@@ -43,8 +43,13 @@
 
     <div id="chat">
 
-      <input type="text" id="message">
-      <button onclick="sendMessagePOST()">Send</button>
+      Jmeno: <input type="text" id="jmeno"><br>
+      Prijmeni: <input type="text" id="prijmeni"><br>
+      Rok narozeni: <input type="number" id="roknarozeni"><br>
+      E-mail: <input type="text" id="email"><br>
+      <input type="checkbox" id="potvrzeno">potvrzeno<br>
+      <button onclick="sendMessagePOST()">Přidat</button>
+
       <button onclick="logout()">Logout</button>
 
       <div id="messageList">...</div>
