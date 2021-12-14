@@ -67,6 +67,10 @@ async function createItem() {
   let url = "https://nodejs-3260.rostiapp.cz/crud/create";
   let body = {};
   body.appId = "f37620849972633644bbc5e1817f8227";
+  if (idEdit) {
+    url = "https://nodejs-3260.rostiapp.cz/crud/update";
+    body.id = idEdit; //which item to modify
+  }
   body.obj = {}; //we must set properties into body.obj!!!
   body.obj.jmeno = document.getElementById("jmeno").value;
   body.obj.prijmeni = document.getElementById("prijmeni").value;
@@ -80,7 +84,32 @@ async function createItem() {
 
 }
 
+let idEdit = undefined;
+
+async function editItem(id) {
+  idEdit = id;
+
+  let url = "https://nodejs-3260.rostiapp.cz/crud/read";
+  let body = {};
+  body.appId = "f37620849972633644bbc5e1817f8227";
+  body.id = id;
+  let response = await fetch(url, {"method":"POST", "body": JSON.stringify(body)});
+  let data = await response.json();
+  console.log(data);
+
+  //set item values to form
+  let o = data.items[0].obj;
+  document.getElementById("jmeno").value = o.jmeno;
+  document.getElementById("prijmeni").value = o.prijmeni;
+  document.getElementById("roknarozeni").value = o.roknar;
+  document.getElementById("email").value = o.email;
+  document.getElementById("potvrzeno").checked = o.potvrzeno;
+
+}
+
 async function updateItems() {
+  idEdit = undefined; //clear item id for update
+
   let url = "https://nodejs-3260.rostiapp.cz/crud/read";
   let body = {};
   body.appId = "f37620849972633644bbc5e1817f8227";
@@ -89,9 +118,14 @@ async function updateItems() {
   console.log(data);
 
   let s = "<table class='table'>";
-  s = s + "<tr><th>Jméno</th><th>Příjmení</th><th>Rok narození</th><th>E-mail</th><th>Potvrzeno</th></tr>";
+  s = s + "<tr><th>Jméno</th><th>Příjmení</th><th>Rok narození</th><th>E-mail</th><th>Potvrzeno</th><th></th></tr>";
   for (let m of data.items) {
-    s = s + "<tr><td>" + m.obj.jmeno + "</td><td>" + m.obj.prijmeni + "</td><td>" + m.obj.roknar + "</td><td>" + m.obj.email + "</td><td>" + m.obj.potvrzeno + "</td></tr>";
+    s = s + "<tr><td>" + m.obj.jmeno + "</td><td>" + m.obj.prijmeni + "</td><td>" + m.obj.roknar + "</td><td>" + m.obj.email + "</td><td>" + m.obj.potvrzeno + "</td>";
+    s = s + "<td>";
+    s = s + "<button onclick='editItem(" + m.id +")'>upravit</button>";
+    s = s + "<button onclick='deleteItem(" + m.id +")'>odstranit</button>";
+    s = s + "</td>";
+    s = s + "</tr>";
   }
   s = s + "</table>";
 
