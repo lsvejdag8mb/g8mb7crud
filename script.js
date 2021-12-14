@@ -38,7 +38,7 @@ async function login() {
 
   if (data.status == "OK") {
     userToken = data.token;
-    showChat();
+    showItems();
   } else {
     alert(data.error);
   }
@@ -63,7 +63,7 @@ async function logout() {
   }
 }
 
-async function sendMessagePOST() {
+async function createItem() {
   let url = "https://nodejs-3260.rostiapp.cz/crud/create";
   let body = {};
   body.appId = "f37620849972633644bbc5e1817f8227";
@@ -76,11 +76,11 @@ async function sendMessagePOST() {
   let response = await fetch(url, {"method":"POST", "body": JSON.stringify(body)});
   let data = await response.json();
 
-  updateMessages();
+  updateItems();
 
 }
 
-async function updateMessages() {
+async function updateItems() {
   let url = "https://nodejs-3260.rostiapp.cz/crud/read";
   let body = {};
   body.appId = "f37620849972633644bbc5e1817f8227";
@@ -89,13 +89,13 @@ async function updateMessages() {
   console.log(data);
 
   let s = "<table class='table'>";
-  s = s + "<tr><th>Jméno</th><th>Příjmení</th><th>Rok narození</td><th>E-mail</td><th>Potvrzeno</td></tr>";
+  s = s + "<tr><th>Jméno</th><th>Příjmení</th><th>Rok narození</th><th>E-mail</th><th>Potvrzeno</th></tr>";
   for (let m of data.items) {
     s = s + "<tr><td>" + m.obj.jmeno + "</td><td>" + m.obj.prijmeni + "</td><td>" + m.obj.roknar + "</td><td>" + m.obj.email + "</td><td>" + m.obj.potvrzeno + "</td></tr>";
   }
   s = s + "</table>";
 
-  document.getElementById("messageList").innerHTML = s;
+  document.getElementById("itemList").innerHTML = s;
 }
 
 function onKeyDown(event) {
@@ -108,25 +108,25 @@ function onKeyDown(event) {
 function showLogin() {
   document.getElementById("registration").style.display = "none";
   document.getElementById("login").style.display = "block";
-  document.getElementById("chat").style.display = "none";
+  document.getElementById("items").style.display = "none";
 }
 
 function showRegistration() {
   document.getElementById("registration").style.display = "block";
   document.getElementById("login").style.display = "none";
-  document.getElementById("chat").style.display = "none";
+  document.getElementById("items").style.display = "none";
 }
 
-function showChat() {
+function showItems() {
   document.getElementById("registration").style.display = "none";
   document.getElementById("login").style.display = "none";
-  document.getElementById("chat").style.display = "block";
+  document.getElementById("items").style.display = "block";
 
-  updateMessages();
+  updateItems();
 }
 
 function onLoad() {
-  showChat();
+  showItems();
 
   //document.getElementById("message").addEventListener("keydown", onKeyDown);
 }
