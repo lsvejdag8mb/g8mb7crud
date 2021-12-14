@@ -108,18 +108,19 @@ async function editItem(id) {
 }
 
 async function deleteItem(id) {
-  if (confirm("Delete? ...are you sure?")) {
-    let url = "https://nodejs-3260.rostiapp.cz/crud/delete";
-    let body = {};
-    body.appId = "f37620849972633644bbc5e1817f8227";
-    body.id = id;
-    let response = await fetch(url, {"method":"POST", "body": JSON.stringify(body)});
-    let data = await response.json();
-    console.log(data);
-  
-    updateItems();
-  }
+  if (!confirm("Delete? ...are you sure?")) {
+    return;
+  }  
 
+  let url = "https://nodejs-3260.rostiapp.cz/crud/delete";
+  let body = {};
+  body.appId = "f37620849972633644bbc5e1817f8227";
+  body.id = id;
+  let response = await fetch(url, {"method":"POST", "body": JSON.stringify(body)});
+  let data = await response.json();
+  console.log(data);
+
+  updateItems();
 }
 
 async function updateItems() {
